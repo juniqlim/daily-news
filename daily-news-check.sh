@@ -1,6 +1,6 @@
 #!/bin/bash
 # 매일 보유 종목 뉴스 체크 자동화
-# launchd에서 매일 09:00에 실행
+# launchd에서 매일 06:00에 실행
 
 set -euo pipefail
 
@@ -10,7 +10,7 @@ for i in $(seq 1 12); do
   sleep 5
 done
 
-NEWS_DIR="/Users/juniq/develop/code/juniqlim/note/investment/daily-news"
+NEWS_DIR="/Users/juniq/develop/code/juniqlim/daily-news"
 TODAY=$(date +%Y-%m-%d)
 OUTPUT_FILE="${NEWS_DIR}/${TODAY}.md"
 
@@ -23,7 +23,7 @@ cat <<PROMPT | /Users/juniq/.local/bin/claude -p \
   --effort medium \
   --allowedTools "WebSearch Read Glob" \
   > "$TMP_OUTPUT" 2>>"${NEWS_DIR}/error.log"
-오늘은 ${TODAY}이다. /Users/juniq/develop/code/juniqlim/note/investment/daily-news-check.md 의 종목 리스트에 있는 각 종목에 대해 어제와 오늘 투자에 영향을 줄 수 있는 뉴스를 검색해줘.
+오늘은 ${TODAY}이다. ${NEWS_DIR}/daily-news-check.md 의 종목 리스트에 있는 각 종목에 대해 어제와 오늘 투자에 영향을 줄 수 있는 뉴스를 검색해줘.
 
 검색 방법:
 1. 각 종목별로 "종목명 news today" 또는 "종목명 뉴스 오늘" 형태로 검색해.
@@ -51,14 +51,14 @@ fi
 # git 단계는 별도 claude -p에 위임
 # - autostash로 사용자 unstaged 변경 보존
 # - rebase 자동 머지 가능하면 진행, 충돌이 사람 판단을 요구하면 abort 후 알림
-cd /Users/juniq/develop/code/juniqlim/note
-GIT_TARGET="investment/daily-news/${TODAY}.md"
+cd "$NEWS_DIR"
+GIT_TARGET="${TODAY}.md"
 GIT_MSG="daily-news: ${TODAY}"
 cat <<GITPROMPT | /Users/juniq/.local/bin/claude -p \
   --effort medium \
   --allowedTools "Bash(git:*)" \
   >> "${NEWS_DIR}/error.log" 2>&1
-다음 git 작업을 수행해. 작업 디렉토리는 /Users/juniq/develop/code/juniqlim/note 이다.
+다음 git 작업을 수행해. 작업 디렉토리는 /Users/juniq/develop/code/juniqlim/daily-news 이다.
 
 1. \`${GIT_TARGET}\` 파일을 stage하고 "${GIT_MSG}" 메시지로 커밋해. 변경이 없으면 커밋은 건너뛰어.
 2. \`git pull --rebase --autostash origin master\` 로 원격을 당겨와.
@@ -114,13 +114,13 @@ if [ "$DOW" -eq 7 ]; then
       mv "${WEEKLY_FILE}.tmp" "$WEEKLY_FILE"
 
       # weekly git 단계도 동일하게 위임
-      WEEKLY_TARGET="investment/daily-news/weekly-${WEEK_START}_${WEEK_END}.md"
+      WEEKLY_TARGET="weekly-${WEEK_START}_${WEEK_END}.md"
       WEEKLY_MSG="weekly-news: ${WEEK_START} ~ ${WEEK_END}"
       cat <<GITPROMPT | /Users/juniq/.local/bin/claude -p \
         --effort medium \
         --allowedTools "Bash(git:*)" \
         >> "${NEWS_DIR}/error.log" 2>&1
-다음 git 작업을 수행해. 작업 디렉토리는 /Users/juniq/develop/code/juniqlim/note 이다.
+다음 git 작업을 수행해. 작업 디렉토리는 /Users/juniq/develop/code/juniqlim/daily-news 이다.
 
 1. \`${WEEKLY_TARGET}\` 파일을 stage하고 "${WEEKLY_MSG}" 메시지로 커밋해. 변경이 없으면 커밋은 건너뛰어.
 2. \`git pull --rebase --autostash origin master\` 로 원격을 당겨와.
