@@ -1,0 +1,14 @@
+{
+  "site": {
+    "title": "매일 뉴스",
+    "tagline": "보유 종목 뉴스를 매일 아침 모읍니다. 사람이 아니라 배치가 씁니다 — 사실 확인이 되지 않은 내용이 섞일 수 있습니다.",
+    "repo": "juniqlim/daily-news",
+    "branch": "master",
+    "domain": "daily.juniq.im",
+    "sibling": { "label": "노트", "url": "https://note.juniq.im" }
+  },
+  "folders": [
+    { "kind": "daily", "label": "하루치" },
+    { "kind": "weekly", "label": "한 주치" }
+  ]
+}
