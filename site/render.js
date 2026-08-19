@@ -5,9 +5,9 @@ const attr = (s) => esc(s).replace(/'/g, '&#39;');
 
 // 노트 하나의 페이지 경로. notes.json 에서 slug 를 주면 그것을 쓴다 (한글 파일명 → ASCII URL).
 export function noteUrl(note) {
-  const dir = note.path.split('/').slice(0, -1).join('/');
+  const dirs = note.path.split('/').slice(0, -1);
   const name = note.slug || note.path.split('/').pop().replace(/\.md$/, '');
-  return ['notes', ...dir.split('/'), name + '.html'].map(encodeURIComponent).join('/');
+  return ['notes', ...dirs, name + '.html'].map(encodeURIComponent).join('/');
 }
 
 // 내부 링크는 md 경로 → 실제 페이지 경로로. 대상이 없으면 링크를 풀어 텍스트로 남긴다.
