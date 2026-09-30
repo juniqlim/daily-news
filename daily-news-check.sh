@@ -33,6 +33,7 @@ cat <<PROMPT | /Users/juniq/.local/bin/claude -p \
    - K-Beauty: "K-Beauty cosmetics export news today" / "K뷰티 화장품 수출 뉴스 오늘"
    - OTT: "streaming OTT industry news today" / "OTT 스트리밍 뉴스 오늘"
    - K-Food: "K-Food ramen export news today" / "K푸드 라면 수출 뉴스 오늘"
+   - 웹툰: "webtoon industry news today" / "웹툰 산업 뉴스 오늘"
 
 출력 형식:
 1. 가장 상단에 "## 진짜 알아야됨" 섹션을 만들어. 여기에는 전 종목 뉴스 중에서 매수/매도 판단에 직접 영향을 주는 것만 넣어. 기준: 실적 서프라이즈/미스, 규제/법적 리스크, M&A, 대규모 자금조달(채권발행 등), 대규모 투자 변경, 경영권 이슈, 목표가 대폭 변경. 해당 없으면 "오늘은 없음"으로 표시.

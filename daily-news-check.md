@@ -21,6 +21,8 @@
 | 기타 | DoorDash | 도어대시 | DoorDash DASH |
 | K-Food | 에스앤디 | 에스앤디 | S&D 260970 |
 | 바이오 | 파마리서치 | 파마리서치 | Pharma Research 214450 |
+| 웹툰 | 탑코미디어 | 탑코미디어 탑툰 | Topco Media 134580 |
+| 웹툰 | 키다리스튜디오 | 키다리스튜디오 | Kidari Studio 020120 |
 
 ## 실행 프롬프트
 
