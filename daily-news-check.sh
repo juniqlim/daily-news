@@ -16,6 +16,11 @@ OUTPUT_FILE="${NEWS_DIR}/${TODAY}.md"
 
 mkdir -p "$NEWS_DIR"
 
+# 다른 PC에서 바꾼 종목 리스트를 반영하려고 뉴스 생성 전에 먼저 당겨온다
+# 실패해도 뉴스는 로컬 리스트로 생성한다
+git -C "$NEWS_DIR" pull --rebase --autostash origin master >>"${NEWS_DIR}/error.log" 2>&1 \
+  || echo "[$(date)] 사전 pull 실패 — 로컬 종목 리스트로 진행" >> "${NEWS_DIR}/error.log"
+
 # Claude Code CLI로 뉴스 검색 실행 (stdin으로 프롬프트 전달)
 # atomic write: 임시파일에 쓰고 성공시에만 교체 (실패해도 기존 파일 보존)
 TMP_OUTPUT="${OUTPUT_FILE}.tmp"
